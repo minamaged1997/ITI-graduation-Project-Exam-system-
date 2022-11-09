@@ -1,14 +1,16 @@
-#the most Important stored Procedures used for the application.
-create procedure [dbo].[GenerateExam] @Crs_ID int, @st_ID int
--- Stored procedure used in the login page in the desktop application
-as
-begin
-	if @Crs_ID not in (select c.crs_id from Course c) 
-  -- if the course ID entered is wrong*
-		select 0
-	else if @st_ID not in (select s.std_id from Student s )
-	--if the student ID is wrong
-		select 1
+# The most Important stored Procedures used for the application.
+<pre>
+
+create procedure [dbo].[GenerateExam] @Crs_ID int, @st_ID int  
+-- Stored procedure used in the login page in the desktop application  
+as  
+begin  
+	if @Crs_ID not in (select c.crs_id from Course c)  
+        -- if the course ID entered is wrong  
+		select 0  
+	else if @st_ID not in (select s.std_id from Student s )  
+        --if the student ID is wrong  
+	        select 1  
 	else if @st_ID not in (select s.std_id from student_course s where s.crs_id=@Crs_ID)
 	--if the student doesnt have this course in the curriculum
 		select 2
@@ -22,13 +24,15 @@ begin
 			insert into exam_Q_std(Q_ID, std_id) select top (5) q.Q_id,@st_ID from Questions q where q.crs_id=@Crs_ID and q.Q_type='MCQ' order by NEWID()
 			insert into exam_Q_std(Q_ID, std_id) select top (5) q.Q_id,@st_ID from Questions q where q.crs_id=@Crs_ID and q.Q_type='T/F' order by NEWID()
 
-			select q.Q_id, q.Question, c.choice,q.Q_type, c.choice_id from exam_Q_std e, Questions q,Question_choices c where e.Q_ID=q.Q_id and q.Q_id=c.Q_id
+			select q.Q_id, q.Question, c.choice,q.Q_type, c.choice_id from exam_Q_std e, Questions q,Question_choices c where e.Q_ID=q.Q_id and                                     q.Q_id=c.Q_id
 			and e.std_id=@st_ID and q.crs_id=@Crs_ID order by q.Q_type
 		end
 end
+</pre>
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-
+# Get Answers
+<pre>
 create procedure [dbo].[GetAnswers] 
 @Stid int, @Answers as dbo.AnsType readonly
 -- stored proc used to get the student answers from the desktop application and save it in the database 
@@ -48,16 +52,18 @@ begin
 		While @@fetch_status=0
 		begin
 			if @st_id=@Stid and @Q_ID in (select a.Qid from @Answers a)
-				update exam_Q_std	set std_answer= (select a.answer from @Answers a where a.Qid=@Q_ID)  where current of t_cur
+				update exam_Q_std set std_answer= (select a.answer from @Answers a where a.Qid=@Q_ID)  where current of t_cur
 			fetch t_cur into @st_id,@Q_ID
 		end
 	end
 	close t_cur
 	deallocate t_cur
 end
+</pre>
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-
+# student results
+<pre>
 create   procedure [dbo].[StudentResults](@st_Id int,@crs_id int, @grade int output)
 as
 -- stored procedure used to get student ID, Course ID and return the total grade after comparing student's answers with the Model answers. 
@@ -95,4 +101,4 @@ begin
 	set @grade= (select grade_overall from student_course where std_id=@st_Id and crs_id=@crs_id)
 
 end
-
+</pre>

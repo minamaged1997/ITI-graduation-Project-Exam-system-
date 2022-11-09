@@ -8,7 +8,7 @@ we use these info to build 2 dashboards to show teh aggregated insights of Instr
 
 toots used: SQL server database, C# (windows forms Application), SSRS, Power BI
 
-#In the files attached to this repo
+# In the files attached to this repo
 you can find the disktop application (.rar file),
 Multiple screenshots of the dashboards and dashboard file on powerBI (.pbix file),
 screenshots of the reports extracted from the database using SSRs

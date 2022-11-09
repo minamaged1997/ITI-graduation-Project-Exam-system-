@@ -3,7 +3,7 @@ This is the final project for graduation fromm Information Technology Institute 
 It's an Examination system using Windows forms application to create the disktop application that students
 use to take there exams, autocorrect it using the model Answers and show their results at the end.
 Also we can show reports showcasing specific Info about the students in each course, their grades, success rate and answers.
-we use these info to build 2 dashboards to show teh aggregated insights of Instructors , courses and student in every department.
+we use these info to build 2 dashboards to show aggregated insights about Instructors , courses and students in every department.
 
 
 toots used: SQL server database, C# (windows forms Application), SSRS, Power BI

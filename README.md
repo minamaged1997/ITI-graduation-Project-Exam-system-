@@ -17,6 +17,6 @@ toots used: SQL server database, C# (windows forms Application), SSRS, Power BI
 - Multiple screenshots of the dashboards and dashboard file on powerBI (.pbix file),
 - screenshots of the reports extracted from the database using SSRS
 - the database (.bak file),
-- Three of the Most Important Stored Procedures are located in (stored procedures.md file)
+- Three of the Most Important Stored Procedures are located in (stored procedures.sql file)
   If you want to all other stored procedure you can download the .bak file
 </pre>
